@@ -1,0 +1,39 @@
+/*Problem statement can be found here*/
+
+//Solution1- Fastest
+
+class Solution {
+    public int numJewelsInStones(String J, String S) {        
+          int c = 0;
+        for(char ch : S.toCharArray())  
+            if(J.indexOf(ch)>=0)
+                c++;
+        return c;
+    }
+}
+
+/*Solution 2. O(n)-
+Set<Character> set = new HashSet();
+        for(int i=0; i < J.length(); i++) {
+            set.add(J.charAt(i));
+        }
+        for(int i=0; i < S.length(); i++) {
+            char stone = S.charAt(i);
+            if(set.contains(stone)) {
+                numOfJewels++;
+            }
+        }
+
+*/
+
+/*Solution 3. O(n^2)
+        for(int i=0; i < J.length(); i++) {
+            
+        for(int j=0; j < S.length(); j++) {
+            char stone = S.charAt(i);
+            if(S.charAt(j)==J.charAt(i)
+                numOfJewels++;
+            }
+        }
+
+*/
