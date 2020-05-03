@@ -1,0 +1,87 @@
+/*Problem statement: https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/534/week-1-may-1st-may-7th/3318/ */
+
+//best solution
+
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+            
+     
+        //each index represents one of 26 alphabets
+        
+        int[] cnt = new int[26];
+        
+        for(char m: ransomNote.toCharArray())
+        {
+            int index = magazine.indexOf(m, cnt[m-'a']);
+            if(index == -1)  return false;
+            cnt[m-'a'] = index + 1;
+        }
+        
+        return true;
+        
+    }
+}
+
+/*Version 2
+class Solution {
+	    public boolean canConstruct(String ransomNote, String magazine) {
+	        
+	        if(ransomNote.length() > magazine.length())
+	            return false; 
+	        
+	        List<Character> test = new ArrayList<>();
+	        
+	        for(int i=0; i<magazine.length(); i++)
+	            test.add(magazine.charAt(i));
+	        
+	        for(int j=0; j<ransomNote.length(); j++)
+	        {
+	            Character c = ransomNote.charAt(j);
+	            
+	            if(test.contains(c))
+	                test.remove(c);
+	            else 
+	                return false;
+	        }
+	        return true;           
+	        
+	    }
+	}
+	
+*/
+
+/*Version 3- Added few corner cases which improved performance. 
+Also -- Used indices of array to represent ascii values of alphabets
+
+	class Solution {
+	    public boolean canConstruct(String ransomNote, String magazine) {
+	            
+	        //chek for all validations and corner cases
+	        
+	        if(ransomNote == null || ransomNote.isEmpty()) 
+	        return true;
+	
+	        if(magazine == null || magazine.isEmpty())
+	            return false;    
+	        
+	        if(ransomNote.length() > magazine.length())
+	            return false; 
+	        
+	        //each index represents one of 26 alphabets
+	        
+	        int[] cnt = new int[26];
+	        
+	        for(char m: magazine.toCharArray())
+	            ++cnt[m-'a'];
+	        
+	        for(char r: ransomNote.toCharArray())  {
+	        if (--cnt[r-'a'] < 0) return false; }
+	        
+	        
+	        return true;    
+	        
+	    }
+	}
+	
+*/
+
