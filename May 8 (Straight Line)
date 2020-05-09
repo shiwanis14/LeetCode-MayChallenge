@@ -1,0 +1,51 @@
+/*Problem statement:https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/535/week-2-may-8th-may-14th/3323/*/
+
+//Solution 1: Check slope, NOTE: we can compute slope using x0,y0 and subsequent points, use casting to double instead of float for some of the testcases
+
+class Solution {
+    public boolean checkStraightLine(int[][] coordinates) {
+      int x0=coordinates[0][0], 
+        y0=coordinates[0][1], 
+        x1=coordinates[1][0] ,
+        y1=coordinates[1][1];
+
+
+      if(x1-x0 == 0)
+         return false;    
+        
+     double m = (double) (y1-y0) / (x1-x0), oldValue=m ;
+        
+            for(int i=2; i<coordinates.length; i++)
+            {
+                int x= coordinates[i][0];
+                int y= coordinates[i][1];
+
+                 if((x-x0) == 0)
+                     return false;
+
+                m= (double)(y-y0)/(x-x0); 
+
+                 if(m!=oldValue)
+                     return false;      
+            }
+        return true;
+    
+    }
+    
+}
+
+//Solution 2 : Used equations to avoid / by zero Exception
+
+public boolean checkStraightLine(int[][] coordinates) {
+        int x0=coordinates[0][0], y0=coordinates[0][1],  x1=coordinates[1][0] ,y1=coordinates[1][1];
+		int dx= x1-x0, dy=y1-y0;
+
+		for(int i=2; i<coordinates.length; i++)
+		{
+			int x= coordinates[i][0];
+			int y= coordinates[i][1];
+			if( dx*(y-y0) != dy*(x-x0) )
+			return false;
+		}
+		return true;
+    }
