@@ -1,0 +1,50 @@
+/*Problem statement: https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/534/week-1-may-1st-may-7th/3322/*/
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if(depth(root,x,1)==depth(root,y,1) && !parent(root,x,y))
+            return true;
+        else return false;
+        
+    }
+    
+    public int depth(TreeNode root, int val, int height) {
+        TreeNode node= root;
+    
+        
+        if(node == null) return 0;
+        if(node.val == val) return height;
+        
+        return depth(node.left, val, height + 1) | 
+               depth(node.right, val, height + 1);
+        
+    }
+    public boolean parent(TreeNode root, int x, int y) {
+    TreeNode node= root;
+     if(node == null) return false;
+        
+        boolean check = false;
+        if(node.left != null && node.right != null)
+        {
+            check = (node.left.val == x && node.right.val == y) ||
+                    (node.left.val == y && node.right.val == x);
+        }
+        return check || parent(node.left, x, y) || parent(node.right, x, y);
+    }
+}
