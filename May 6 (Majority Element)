@@ -1,0 +1,54 @@
+/*Problem statement : https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/534/week-1-may-1st-may-7th/3321/*/
+
+//Solution 1, USe hashmap to put count, if frequency exceeds n/2 return it
+
+class Solution {
+    public int majorityElement(int[] nums) {
+        int maxfrequency = nums.length/2;
+        Map<Integer,Integer> maps = new HashMap<Integer,Integer>();
+        for(int n:nums)
+        {
+            if(!maps.containsKey(n))
+                maps.put(n,1);
+             else {
+                int count= maps.get(n);
+                maps.put(n,++count);
+              }
+            
+            if(maps.get(n) > maxfrequency)
+                return n;
+        }
+        
+        return -1;
+}
+    
+}
+
+//Solution 2: Majority element will always be present at n/2th position in array after sorting it
+class Solution {
+    public int majorityElement(int[] nums) {
+    int position= nums.length / 2;
+    Arrays.sort(nums);
+    return nums[position];
+    }
+}
+
+//Solution 3: Use voting algorithm
+class Solution {
+    public int majorityElement(int[] nums) {
+    int count = 0, candidate = -1;
+    for(int n : nums)
+    {
+        if(count==0)
+        candidate=n;
+    
+        count += (candidate==n)? 1 : -1 ;
+            
+    }
+        return candidate;
+    }
+    
+}
+
+
+
