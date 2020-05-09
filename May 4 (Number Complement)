@@ -1,0 +1,12 @@
+/*Problem statement-- https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/534/week-1-may-1st-may-7th/3319/ 
+Idea is to create a mask with the number of digits in original solution, then use XOR function of the number and mask
+*/
+
+
+
+public class Solution {
+    public int findComplement(int num) {
+        int mask = (Integer.highestOneBit(num) << 1) - 1;
+        return num ^ mask;
+    }
+}
