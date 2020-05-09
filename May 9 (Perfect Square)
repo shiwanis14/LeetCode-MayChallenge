@@ -1,0 +1,39 @@
+/*Problem statement: https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/535/week-2-may-8th-may-14th/3324/*/
+
+//Solution 1: Linear Search till n/2
+
+class Solution {
+    public boolean isPerfectSquare(int num) {
+        if(num==1)
+            return true;
+        
+        for(int i=2; i<=num/2;i++)
+        {
+            if(i*i==num)
+                return true;               
+        }
+         return false;           
+    }
+}
+
+//Solution 2: As we need to search for a number, use binary search, now mid*mid can overflow so use long as datatype for mid
+
+
+class Solution {
+    public boolean isPerfectSquare(int num) {
+        int low=1, high=num;
+        while(low<=high){
+            long mid = low + (high-low)/2;
+            long square= mid*mid;
+            if(square==num)
+                return true;
+            else if(square>num)
+               high=(int)mid-1;
+            else
+                low=(int)mid+1;
+            
+        }
+        return false;
+    }
+}
+
