@@ -37,3 +37,28 @@ class Solution {
     }
 }
 
+//Solution 3: Perfect square lies in the range of 1 .. num/2. Hence high can be set accordingly. Modified the code
+
+class Solution {
+    public boolean isPerfectSquare(int num) {
+        
+        if(num==1)
+            return true;
+        
+        int low=1, high=num/2;
+        while(low<=high){
+            long mid = low + (high-low)/2;
+            long square= mid*mid;
+            if(square==num)
+                return true;
+            else if(square>num)
+               high=(int)mid-1;
+            else
+                low=(int)mid+1;
+            
+        }
+        return false;
+    }
+}
+
+
