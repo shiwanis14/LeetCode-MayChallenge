@@ -1,0 +1,71 @@
+/*Problem statement: https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/535/week-2-may-8th-may-14th/3325/*/
+
+/*Naive solution: For every number from 1..N, iterate through trust array. If there is an outgoing link from it,
+set flag false(this is important for cases which satisfy the count constraint. however have an outgoing edge*/
+
+
+class Solution {
+    public int findJudge(int N, int[][] trust) {
+        if(N==1 && trust.length==0)
+            return 1; //trusts himself if one person
+        else if (N==2 && trust.length==1)
+            return trust[0][1]; //trusts the other if two persons
+        else if (trust.length<N-1)
+            return -1; //minimum number of cases
+  
+        
+        int i=1 ,counter=0; boolean flag=true;
+        
+        while(i<=N)
+        {
+
+          for(int j=0; j<trust.length; j++)
+          {
+               if(trust[j][0]==i)
+                   flag=false;
+              
+              if(trust[j][1]==i && trust[j][0]<=N )
+                   counter++;           
+          }    
+            if(counter==N-1 && flag)
+                   return i;
+            else  
+            { 
+                i++;
+                counter=0;
+                flag=true;
+            }
+        }
+        
+        return -1;
+        
+    }
+}
+
+/*Better solution O(n+t) Space O(n), create an array of trustcount for each element 1..N(as index starts from 0, need 
+size n+1. For every array of trust vector(2D array), if first element is there, it means outgoing edge, decrement the count
+For every incoming edge, incremenet the count. In the ideal scenario, if there is no outgoing edge
+and all edges are incoming and count==N-1, it is the judge.*/
+
+class Solution {
+    public int findJudge(int N, int[][] trust) {
+        int[] trustCount= new int[N+1];
+        int result = -1;
+        for(int[] n : trust)
+        {
+             trustCount[n[0]]--; 
+             trustCount[n[1]]++;
+                     
+        }
+        
+            for(int i=1; i<=N; i++)
+            {
+                if(trustCount[i]==N-1)
+                    return i;
+            }
+        
+        return result;
+        
+        }
+    
+}
