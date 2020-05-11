@@ -42,6 +42,33 @@ class Solution {
     }
 }
 
+//Solution 2
+
+class Solution {
+    public int findJudge(int N, int[][] trust) {
+        int[] inDegree= new int[N+1];
+        int[] outDegree= new int[N+1];
+        int result = -1;
+        
+        for(int[] n : trust)
+        {
+             outDegree[n[0]]++; 
+             inDegree[n[1]]++;
+                     
+        }
+        
+            for(int i=1; i<=N; i++)
+            {
+                if(inDegree[i]==N-1 && outDegree[i]==0 )
+                    return i;
+            }
+        
+        return result;
+        
+        }
+    
+}
+
 /*Better solution O(n+t) Space O(n), create an array of trustcount for each element 1..N(as index starts from 0, need 
 size n+1. For every array of trust vector(2D array), if first element is there, it means outgoing edge, decrement the count
 For every incoming edge, incremenet the count. In the ideal scenario, if there is no outgoing edge
