@@ -1,0 +1,20 @@
+//Problem statement: https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/535/week-2-may-8th-may-14th/3327/
+
+class Solution {
+    public int singleNonDuplicate(int[] nums) {
+        
+        int i=0;
+        while(i<nums.length)
+        {
+            if(i==nums.length-1)
+                return nums[i]; //last element or only element not matching
+            else if(nums[i]!=nums[i+1])
+                return nums[i];       //other element not matching
+            else
+                i+=2; //matching element jump two spaces
+                 
+        }
+        
+        return -1;
+    }
+}
