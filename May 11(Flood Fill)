@@ -1,0 +1,30 @@
+//Problem statement: https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/535/week-2-may-8th-may-14th/3326/
+
+//Solution 1: Note add if (image[sr][sc] == newColor) return image; as it will give stack overflow without it
+//It would cause StackOverFlow since we would be going back and forth to change the color to NewColor even though it's already NewcColor
+
+
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) { 
+        if(image[sr][sc]==newColor)
+            return image;
+        
+        int prevColor=image[sr][sc];
+        dfs(image,sr,sc,newColor,prevColor);
+        return image;
+    }
+    
+    private void dfs(int[][] image, int x, int y, int newColor, int prevColor)
+    {
+        if(x<0 || x>=image.length || y<0 || y>=image[0].length || image[x][y]!=prevColor)
+            return;        
+       
+         image[x][y]=newColor;
+        
+       dfs(image,x-1,y,newColor,prevColor);
+       dfs(image,x+1,y,newColor,prevColor);
+       dfs(image,x,y-1,newColor,prevColor);
+       dfs(image,x,y+1,newColor,prevColor);
+        
+    }
+}
