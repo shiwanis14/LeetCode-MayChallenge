@@ -1,0 +1,54 @@
+//Problem statement: https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/534/week-1-may-1st-may-7th/
+
+//Solution 1: Called Kadane sum on array and -ve array. Uses O(1) extra space.
+
+class Solution {
+    public int maxSubarraySumCircular(int[] A) {
+        int[] B = new int[A.length];
+        //kadane's algorithm will work where the elements are in middle
+        int max_sum = KadaneSum(A);    
+        for(int i=0; i<A.length; i++)
+            B[i]=-A[i];
+        int min_sum = KadaneSum(B); //minimum subarray sum (total-min sum will give circular sum)
+        int total_sum= Arrays.stream(A).sum();
+        return (max_sum<0)? max_sum : Math.max(max_sum,total_sum+min_sum);
+        //if all values are negative total-min sum will give 0
+    }
+    
+    private int KadaneSum(int[] A)
+    {
+        //int current_sum=A[0], max_sum=A[0];
+        int current_sum=0, max_sum=Integer.MIN_VALUE;
+        for(int i=0; i<A.length; i++)
+        {
+            current_sum=Math.max(A[i],A[i]+current_sum);
+            max_sum=Math.max(current_sum,max_sum);           
+        }
+        
+        return max_sum;
+    }
+}
+
+//Solution 2: compute max_sum, min_sum and total on the fly. All 3 corner cases are handled in return statement.
+
+class Solution {
+    public int maxSubarraySumCircular(int[] A) {
+        
+         //int current_sum=A[0], max_sum=A[0];
+        int current_sum=0, 
+        max_sum=Integer.MIN_VALUE, total=0,current_minsum=0,min_sum=Integer.MAX_VALUE;
+        for(int i=0; i<A.length; i++)
+        {
+            current_sum=Math.max(A[i],A[i]+current_sum);
+            max_sum=Math.max(current_sum,max_sum);  
+            
+            current_minsum=Math.min(A[i],A[i]+current_minsum);
+            min_sum=Math.min(current_minsum,min_sum);    
+            
+            total+=A[i];
+           
+        }
+         return (max_sum<0)? max_sum : Math.max(max_sum,total-min_sum);
+     
+    }
+}
