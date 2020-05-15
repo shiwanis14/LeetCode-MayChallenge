@@ -1,0 +1,23 @@
+//Problem statement: https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/535/week-2-may-8th-may-14th/3327/
+
+//Solution 1 : The given complexity O(logn) hints at using binary search tree, however the following code beats 100% of 
+//submissions and its pretty too
+
+class Solution {
+    public int singleNonDuplicate(int[] nums) {
+        
+        int i=0;
+        while(i<nums.length)
+        {
+            if(i==nums.length-1) //element is last in the array(wont have a pair, simply return if you reached here
+                return nums[i];
+            else if(nums[i]!=nums[i+1]) //elements are not in pair
+                return nums[i];       
+            else
+                i+=2;
+                
+        }
+        
+        return -1;
+    }
+}
