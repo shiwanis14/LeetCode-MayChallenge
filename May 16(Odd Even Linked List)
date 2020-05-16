@@ -1,0 +1,28 @@
+//Problem statement: https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/536/week-3-may-15th-may-21st/3331/
+
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        if(head==null)
+            return null;
+        
+        //ListNode oddptrhead=head;
+        ListNode evenptrhead=head.next;
+        
+        ListNode oddptr=head;
+        ListNode evenptr=evenptrhead;
+        
+       
+        while(evenptr!=null && evenptr.next!=null) //last node will be even
+        {           
+            
+            oddptr.next=oddptr.next.next; //adjust odd and even link to create two separate LL
+            evenptr.next=evenptr.next.next;  
+            
+            oddptr=oddptr.next; //move forward pointers
+            evenptr=evenptr.next;           
+          
+        }
+        oddptr.next=evenptrhead; //In the end , connect oddpptr(last odd note) to evenptrhead
+        return head;
+    }
+}
