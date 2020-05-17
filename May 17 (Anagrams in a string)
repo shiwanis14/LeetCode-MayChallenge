@@ -1,0 +1,46 @@
+//Problem statement:https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/536/week-3-may-15th-may-21st/3332/
+
+
+//Solution: An anagram is basically a permutation or a pattern of string. We need to use sliding window algorithm and maintain 
+//frequency of every character we encounter in the target string.
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        
+        int anagramLength=p.length(),stringLength=s.length();
+        List<Integer> result = new ArrayList<>();
+        int[] count = new int[26];
+        
+        if(stringLength<anagramLength)
+            return result;               
+        
+       for(int i=0; i<anagramLength; i++)
+        {
+           count[s.charAt(i)-'a']++;   
+           count[p.charAt(i)-'a']--;   
+       }
+        
+        for(int i=anagramLength; i<stringLength; i++)
+        {
+           if (checkAllZeros(count))
+               result.add(i-anagramLength); //index of anagram pattern 
+            
+           count[s.charAt(i)-'a']++;   //include current character
+           count[s.charAt(i-anagramLength)-'a']--;   //exclude last character
+           
+        }
+        
+        if (checkAllZeros(count)) //for last window as it is missed
+               result.add(stringLength-anagramLength);
+        
+        return result;
+    }
+    
+    private boolean checkAllZeros(int[] count)
+    {
+        for(int n: count)
+        { if(n!=0) return false; }
+        return true;       
+    }
+               
+}
